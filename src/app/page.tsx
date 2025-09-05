@@ -32,6 +32,7 @@ import ThemeCustomizer from "@/components/portfolio/ThemeCustomizer";
 import PreviewPanel from "@/components/portfolio/PreviewPanel";
 import ExportSystem from "@/components/portfolio/ExportSystem";
 import ChallengeSystem from "@/components/portfolio/ChallengeSystem";
+import CertificationSystem from "@/components/portfolio/CertificationSystem";
 
 // Import playground components
 import CSSPlayground from "@/components/playground/CSSPlayground";
@@ -121,6 +122,8 @@ export default function PortfolioBuilder() {
         return <ExportSystem portfolioData={portfolioData} components={components} styleMode={styleMode} />;
       case 'challenges':
         return <ChallengeSystem userTier={userTier} />;
+      case 'certifications':
+        return <CertificationSystem userTier={userTier} />;
       default:
         return <HomePage userTier={userTier} onUpgrade={handleUpgrade} onStartLearning={handleStartLearning} />;
     }
@@ -361,6 +364,12 @@ function HomePage({ userTier, onUpgrade, onStartLearning }: {
           title="Utility vs Custom"
           description="Compare utility-first and custom CSS approaches with real examples"
           color="from-indigo-500 to-purple-500"
+        />
+        <FeatureCard
+          icon={<Award className="h-8 w-8" />}
+          title="Certification System"
+          description="Earn certificates and badges as you progress through your learning journey"
+          color="from-yellow-500 to-orange-500"
         />
       </div>
 
