@@ -126,16 +126,16 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
             level > 0 ? 'ml-4' : ''
           } ${
             isActive 
-              ? 'bg-white/20 text-white' 
-              : 'text-white/80 hover:text-white hover:bg-white/10'
+              ? 'bg-white/20 text-black font-bold' 
+              : 'text-black font-bold hover:text-black hover:bg-white/10'
           }`}
         >
           <IconComponent className="h-4 w-4 mr-2" />
           {!isCollapsed && (
             <>
-              <span className="flex-1 text-left">{item.label}</span>
+              <span className="flex-1 text-left font-bold">{item.label}</span>
               {item.badge && (
-                <Badge variant="secondary" className="ml-2 text-xs">
+                <Badge variant="secondary" className="ml-2 text-xs font-bold">
                   {item.badge}
                 </Badge>
               )}
@@ -166,15 +166,15 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
         <div className="flex items-center justify-between">
           {!isCollapsed && (
             <div className="flex items-center">
-              <Code className="h-6 w-6 text-white mr-2" />
-              <span className="text-lg font-bold text-white">CSS Master</span>
+              <Code className="h-6 w-6 text-black mr-2" />
+              <span className="text-lg font-bold text-black">CSS Master</span>
             </div>
           )}
           <Button
             onClick={onToggle}
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/10"
+            className="text-black hover:bg-white/10 font-bold"
           >
             {isCollapsed ? <Menu className="h-4 w-4" /> : <X className="h-4 w-4" />}
           </Button>
@@ -185,7 +185,7 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
       <div className="p-4 space-y-6">
         {/* Main Navigation */}
         <div className="space-y-2">
-          <h3 className={`text-xs font-semibold text-white/60 uppercase tracking-wider ${
+          <h3 className={`text-xs font-bold text-black uppercase tracking-wider ${
             isCollapsed ? 'hidden' : ''
           }`}>
             Main
@@ -195,7 +195,7 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
 
         {/* Playground Section */}
         <div className="space-y-2">
-          <h3 className={`text-xs font-semibold text-white/60 uppercase tracking-wider ${
+          <h3 className={`text-xs font-bold text-black uppercase tracking-wider ${
             isCollapsed ? 'hidden' : ''
           }`}>
             Playground
@@ -205,7 +205,7 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
 
         {/* Challenges Section */}
         <div className="space-y-2">
-          <h3 className={`text-xs font-semibold text-white/60 uppercase tracking-wider ${
+          <h3 className={`text-xs font-bold text-black uppercase tracking-wider ${
             isCollapsed ? 'hidden' : ''
           }`}>
             Challenges
@@ -215,7 +215,7 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
 
         {/* Tools Section */}
         <div className="space-y-2">
-          <h3 className={`text-xs font-semibold text-white/60 uppercase tracking-wider ${
+          <h3 className={`text-xs font-bold text-black uppercase tracking-wider ${
             isCollapsed ? 'hidden' : ''
           }`}>
             Tools
@@ -234,10 +234,10 @@ export default function Sidebar({ activeTab, onTabChange, userTier, isCollapsed,
           </div>
           {!isCollapsed && (
             <div className="flex-1">
-              <div className="text-sm font-medium text-white">
+              <div className="text-sm font-bold text-black">
                 {userTier === 'pro' ? 'Pro User' : 'Free User'}
               </div>
-              <div className="text-xs text-white/60">
+              <div className="text-xs text-black/60 font-medium">
                 {userTier === 'pro' ? 'Unlimited access' : 'Limited features'}
               </div>
             </div>

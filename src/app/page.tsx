@@ -18,7 +18,9 @@ import {
   Home,
   BookOpen,
   Award,
-  ToggleLeft
+  ToggleLeft,
+  CheckCircle,
+  Sparkles
 } from "lucide-react";
 
 import Navbar from "@/components/layout/Navbar";
@@ -53,19 +55,39 @@ export default function PortfolioBuilder() {
   });
   const [components, setComponents] = useState<any[]>([]);
   const [theme, setTheme] = useState<any>(null);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
   const handleAddComponent = (component: any) => {
     setComponents(prev => [...prev, component]);
   };
 
   const handleUpgrade = () => {
+    setShowUpgradeModal(true);
+  };
+
+  const confirmUpgrade = () => {
     setUserTier('pro');
+    setShowUpgradeModal(false);
+    // Show success message or redirect to payment
+    alert('🎉 Welcome to Pro! You now have access to all premium features!');
+  };
+
+  const handleStartLearning = () => {
+    setShowWelcomeModal(true);
+  };
+
+  const startLearningPath = () => {
+    setShowWelcomeModal(false);
+    setActiveTab('css-playground');
+    // Show welcome message
+    alert('🚀 Let\'s start your CSS & Tailwind journey! Begin with the CSS vs Tailwind Playground.');
   };
 
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
-        return <HomePage userTier={userTier} onUpgrade={handleUpgrade} />;
+        return <HomePage userTier={userTier} onUpgrade={handleUpgrade} onStartLearning={handleStartLearning} />;
       case 'builder':
         return (
           <div className="space-y-6">
@@ -100,7 +122,7 @@ export default function PortfolioBuilder() {
       case 'challenges':
         return <ChallengeSystem userTier={userTier} />;
       default:
-        return <HomePage userTier={userTier} onUpgrade={handleUpgrade} />;
+        return <HomePage userTier={userTier} onUpgrade={handleUpgrade} onStartLearning={handleStartLearning} />;
     }
   };
 
@@ -135,11 +157,134 @@ export default function PortfolioBuilder() {
         {/* Footer */}
         <Footer />
       </div>
+
+      {/* Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Card className="glass-effect border-white/20 max-w-md w-full mx-4">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="h-6 w-6 text-purple-500" />
+                Upgrade to Pro
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <h3 className="font-semibold text-lg">Unlock Premium Features:</h3>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Unlimited challenges and battles
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Advanced code editor features
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Export projects as Next.js repos
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Premium themes and components
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Priority support
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-lg text-white">
+                <div className="text-2xl font-bold">$9.99/month</div>
+                <div className="text-sm opacity-90">Cancel anytime</div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setShowUpgradeModal(false)}
+                  variant="outline"
+                  className="flex-1 bg-white/10 border-white/20"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={confirmUpgrade}
+                  className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                >
+                  <Star className="h-4 w-4 mr-2" />
+                  Upgrade Now
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Welcome Modal */}
+      {showWelcomeModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Card className="glass-effect border-white/20 max-w-md w-full mx-4">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Play className="h-6 w-6 text-blue-500" />
+                Welcome to CSS Master!
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <p className="text-sm opacity-80">
+                  Ready to master CSS and Tailwind? Let's start your learning journey!
+                </p>
+                
+                <div className="space-y-2">
+                  <h4 className="font-semibold">Recommended Learning Path:</h4>
+                  <div className="space-y-1 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+                      <span>CSS vs Tailwind Playground</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+                      <span>Component Challenge Arena</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+                      <span>Responsive Design Trainer</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => setShowWelcomeModal(false)}
+                  variant="outline"
+                  className="flex-1 bg-white/10 border-white/20"
+                >
+                  Maybe Later
+                </Button>
+                <Button
+                  onClick={startLearningPath}
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  Start Learning
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
 
-function HomePage({ userTier, onUpgrade }: { userTier: 'free' | 'pro', onUpgrade: () => void }) {
+function HomePage({ userTier, onUpgrade, onStartLearning }: { 
+  userTier: 'free' | 'pro', 
+  onUpgrade: () => void,
+  onStartLearning: () => void
+}) {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -158,6 +303,7 @@ function HomePage({ userTier, onUpgrade }: { userTier: 'free' | 'pro', onUpgrade
           <div className="flex justify-center gap-4 mt-8">
             <Button 
               size="lg"
+              onClick={onStartLearning}
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
             >
               <Play className="h-5 w-5 mr-2" />
